@@ -1,4 +1,5 @@
 ﻿using DSharpPlus;
+using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ namespace Sine
     {
         public DiscordClient Client { get; private set; }
         public CommandsNextExtension Commands { get; private set; }
+        public DiscordActivity Activity { get; set; }
 
         public async Task RunAsync()
         {
@@ -37,6 +39,12 @@ namespace Sine
 
             Client.Ready += OnClientReady;
 
+            var activity = new DiscordActivity
+            {
+                ActivityType = ActivityType.Watching,
+                Name = "https://github.com/ZynyxTheFirst/SineBot"
+            };
+
             var commandsConfig = new CommandsNextConfiguration
             {
                 StringPrefixes = new string[] {ConfigJson.Prefix},
@@ -46,12 +54,14 @@ namespace Sine
                 CaseSensitive = false
                 
             };
-
+            
             Commands = Client.UseCommandsNext(commandsConfig);
 
             Commands.RegisterCommands<TestCommands>();
 
-            await Client.ConnectAsync();
+            //await Client.UpdateStatusAsync();
+            
+            await Client.ConnectAsync(activity, UserStatus.Online);
 
             await Task.Delay(-1);
         }
