@@ -1,5 +1,6 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Interactivity;
 using System.Threading.Tasks;
 
 namespace Sine.Commands
@@ -11,5 +12,26 @@ namespace Sine.Commands
         {
             await ctx.Channel.SendMessageAsync("```Hello World!```").ConfigureAwait(false);
         }
+
+        [Command("respondmessage")]
+        public async Task RespondMessage(CommandContext ctx)
+        {
+            var interactivity = ctx.Client.GetInteractivity();
+
+            var message = await interactivity.WaitForMessageAsync(x => x.Channel == ctx.Channel).ConfigureAwait(false);
+
+            await ctx.Channel.SendMessageAsync(message.Result.Content);
+        }
+        
+        [Command("respondreaction")]
+        public async Task RespondReaction(CommandContext ctx)
+        {
+            var interactivity = ctx.Client.GetInteractivity();
+
+            var message = await interactivity.WaitForReactionAsync(x => x.Channel == ctx.Channel).ConfigureAwait(false);
+
+            await ctx.Channel.SendMessageAsync(message.Result.Emoji);
+        }
+
     }
 }

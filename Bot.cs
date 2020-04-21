@@ -7,12 +7,15 @@ using Sine.Commands;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using DSharpPlus.Interactivity;
+using System;
 
 namespace Sine
 {
     class Bot
     {
         public DiscordClient Client { get; private set; }
+        public InteractivityExtension Interactivity { get; private set; }
         public CommandsNextExtension Commands { get; private set; }
         public DiscordActivity Activity { get; set; }
 
@@ -38,6 +41,11 @@ namespace Sine
             Client = new DiscordClient(config);
 
             Client.Ready += OnClientReady;
+
+            Client.UseInteractivity(new InteractivityConfiguration
+            {
+                Timeout = TimeSpan.FromMinutes(2)
+            });
 
             var activity = new DiscordActivity
             {
