@@ -12,6 +12,12 @@ namespace Sine.Commands
         {
             await ctx.Channel.SendMessageAsync("```Hello World!```").ConfigureAwait(false);
         }
+        
+        [Command("nig")]
+        public async Task NigNog(CommandContext ctx)
+        {
+            await ctx.Channel.SendMessageAsync("```nog```").ConfigureAwait(false);
+        }
 
         [Command("respondmessage")]
         public async Task RespondMessage(CommandContext ctx)
@@ -20,7 +26,7 @@ namespace Sine.Commands
 
             var message = await interactivity.WaitForMessageAsync(x => x.Channel == ctx.Channel).ConfigureAwait(false);
 
-            await ctx.Channel.SendMessageAsync(message.Result.Content);
+            await ctx.Channel.SendMessageAsync("```" + message.Result.Content + "```");
         }
         
         [Command("respondreaction")]
