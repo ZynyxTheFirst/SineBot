@@ -67,8 +67,6 @@ namespace Sine
 
             Commands.RegisterCommands<TestCommands>();
 
-            //await Client.UpdateStatusAsync();
-            
             await Client.ConnectAsync(activity, UserStatus.Online);
 
             await Task.Delay(-1);
