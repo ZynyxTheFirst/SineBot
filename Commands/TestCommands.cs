@@ -38,6 +38,5 @@ namespace Sine.Commands
 
             await ctx.Channel.SendMessageAsync(message.Result.Emoji);
         }
-
     }
 }

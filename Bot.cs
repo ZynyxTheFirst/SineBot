@@ -60,7 +60,6 @@ namespace Sine
                 EnableMentionPrefix = true,
                 DmHelp = false,
                 CaseSensitive = false
-                
             };
             
             Commands = Client.UseCommandsNext(commandsConfig);
